@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>运势专栏 - 洛谷风格</title>
+    <title>周锐童的博客 - 探索技术与生活</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind配置 - 洛谷风格色调 -->
+    <!-- Tailwind配置 - 个人博客风格 -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#409EFF',      // 洛谷主蓝色
-                        secondary: '#67C23A',    // 成功/好运色
-                        warning: '#E6A23C',      // 警告/一般运色
-                        danger: '#F56C6C',       // 危险/坏运色
+                        primary: '#409EFF',      // 主色调：蓝色
+                        secondary: '#722ED1',    // 辅助色：紫色
+                        accent: '#13C2C2',       // 强调色：青色
                         dark: '#303133',         // 主要文字色
                         medium: '#606266',       // 次要文字色
                         light: '#909399',        // 辅助文字色
@@ -48,6 +47,27 @@
                 transform: translateY(-2px);
                 box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.12);
             }
+            .text-balance {
+                text-wrap: balance;
+            }
+            .prose {
+                max-width: none;
+            }
+            .prose img {
+                margin: 2rem 0;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            .prose pre {
+                background-color: #f8fafc;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                overflow-x: auto;
+            }
+            .prose code {
+                font-family: 'Fira Code', monospace;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -59,38 +79,39 @@
                 <!-- Logo -->
                 <div class="flex items-center">
                     <a href="#" class="flex items-center">
-                        <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xl">运</div>
-                        <span class="ml-2 text-xl font-bold text-primary">运势专栏</span>
+                        <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xl">周</div>
+                        <span class="ml-2 text-xl font-bold text-primary">周锐童的博客</span>
                     </a>
                     
                     <!-- 主导航 -->
                     <nav class="hidden md:flex ml-10 space-x-8">
                         <a href="#" class="text-primary font-medium border-b-2 border-primary pb-1">首页</a>
-                        <a href="#columns" class="text-medium hover:text-primary transition-colors">专栏</a>
-                        <a href="#fortune" class="text-medium hover:text-primary transition-colors">运势</a>
+                        <a href="#articles" class="text-medium hover:text-primary transition-colors">文章</a>
+                        <a href="#projects" class="text-medium hover:text-primary transition-colors">项目</a>
+                        <a href="#about" class="text-medium hover:text-primary transition-colors">关于我</a>
                     </nav>
                 </div>
                 
                 <!-- 搜索栏 -->
                 <div class="hidden md:flex items-center flex-1 max-w-md mx-8">
                     <div class="relative w-full">
-                        <input type="text" placeholder="搜索专栏文章..." class="w-full py-2 px-4 pl-10 rounded-full border border-border-light focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
+                        <input type="text" placeholder="搜索文章..." class="w-full py-2 px-4 pl-10 rounded-full border border-border-light focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
                         <i class="fa fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-light"></i>
                     </div>
                 </div>
                 
                 <!-- 用户操作区 -->
                 <div class="flex items-center space-x-4">
-                    <div class="relative group">
-                        <button class="flex items-center space-x-1 text-medium hover:text-primary transition-colors">
-                            <img src="https://picsum.photos/32/32?random=1" alt="用户头像" class="w-8 h-8 rounded-full border-2 border-white shadow-sm">
-                            <span class="hidden md:inline">游客</span>
-                            <i class="fa fa-angle-down text-xs"></i>
-                        </button>
-                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden group-hover:block transition-all duration-200">
-                            <a href="#" class="block px-4 py-2 text-sm text-medium hover:bg-bg-light hover:text-primary">登录</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-medium hover:bg-bg-light hover:text-primary">注册</a>
-                        </div>
+                    <div class="hidden md:flex space-x-3">
+                        <a href="#" class="text-light hover:text-primary transition-colors" title="GitHub">
+                            <i class="fa fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-light hover:text-primary transition-colors" title="Twitter">
+                            <i class="fa fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-light hover:text-primary transition-colors" title="LinkedIn">
+                            <i class="fa fa-linkedin text-xl"></i>
+                        </a>
                     </div>
                     <button class="md:hidden text-medium hover:text-primary transition-colors" id="mobileMenuBtn">
                         <i class="fa fa-bars text-xl"></i>
@@ -102,11 +123,23 @@
             <div class="md:hidden hidden transition-all duration-300" id="mobileMenu">
                 <div class="px-4 pt-2 pb-4 space-y-1">
                     <a href="#" class="block py-2 text-primary font-medium">首页</a>
-                    <a href="#columns" class="block py-2 text-medium hover:text-primary transition-colors">专栏</a>
-                    <a href="#fortune" class="block py-2 text-medium hover:text-primary transition-colors">运势</a>
+                    <a href="#articles" class="block py-2 text-medium hover:text-primary transition-colors">文章</a>
+                    <a href="#projects" class="block py-2 text-medium hover:text-primary transition-colors">项目</a>
+                    <a href="#about" class="block py-2 text-medium hover:text-primary transition-colors">关于我</a>
                     <div class="relative mt-4">
-                        <input type="text" placeholder="搜索专栏文章..." class="w-full py-2 px-4 pl-10 rounded-full border border-border-light focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
+                        <input type="text" placeholder="搜索文章..." class="w-full py-2 px-4 pl-10 rounded-full border border-border-light focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
                         <i class="fa fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-light"></i>
+                    </div>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-light hover:text-primary transition-colors" title="GitHub">
+                            <i class="fa fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-light hover:text-primary transition-colors" title="Twitter">
+                            <i class="fa fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-light hover:text-primary transition-colors" title="LinkedIn">
+                            <i class="fa fa-linkedin text-xl"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -115,331 +148,327 @@
 
     <!-- 主要内容区 -->
     <main class="flex-1 container mx-auto px-4 py-8">
-        <!-- 今日运势 -->
-        <section id="fortune" class="mb-10">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold">今日运势</h2>
-                <div class="flex items-center text-sm text-light">
-                    <span id="currentDate">2023年10月15日</span>
-                    <button class="ml-4 text-primary hover:underline">
-                        <i class="fa fa-refresh mr-1"></i> 重新测算
-                    </button>
-                </div>
-            </div>
-            
-            <!-- 运势卡片 -->
+        <!-- 博主介绍 -->
+        <section id="about" class="mb-10">
             <div class="bg-white rounded-xl card-shadow p-6 md:p-8 card-hover">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- 左侧主运势 -->
-                    <div class="md:col-span-1 flex flex-col items-center justify-center text-center">
-                        <div class="w-32 h-32 rounded-full bg-secondary/20 flex items-center justify-center mb-4">
-                            <i class="fa fa-smile-o text-5xl text-secondary"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-secondary mb-2">运势极佳</h3>
-                        <div class="flex items-center mb-4">
-                            <div class="w-32 bg-gray-200 rounded-full h-2">
-                                <div class="bg-secondary h-2 rounded-full" style="width: 90%"></div>
-                            </div>
-                            <span class="ml-2 text-secondary font-medium">90分</span>
-                        </div>
-                        <p class="text-medium">今天是充满活力的一天，适合尝试新事物和结交新朋友，思维清晰，适合学习和创作。</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    <div class="flex justify-center md:justify-start">
+                        <img src="https://picsum.photos/200/200?random=1" alt="周锐童的头像" class="w-40 h-40 rounded-full object-cover border-4 border-white shadow-md">
                     </div>
-                    
-                    <!-- 右侧运势详情 -->
-                    <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-primary/5 rounded-lg p-4">
-                            <h4 class="text-sm text-light mb-2">幸运颜色</h4>
-                            <div class="flex items-center">
-                                <div class="w-8 h-8 rounded-full bg-green-500 mr-3"></div>
-                                <span class="font-medium">绿色</span>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-primary/5 rounded-lg p-4">
-                            <h4 class="text-sm text-light mb-2">幸运数字</h4>
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">7</div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-primary/5 rounded-lg p-4">
-                            <h4 class="text-sm text-light mb-2">今日宜做</h4>
-                            <ul class="space-y-1 text-medium">
-                                <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> 学习新知识</li>
-                                <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> 整理房间</li>
-                                <li class="flex items-center"><i class="fa fa-check text-secondary mr-2"></i> 进行体育锻炼</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="bg-primary/5 rounded-lg p-4">
-                            <h4 class="text-sm text-light mb-2">今日忌做</h4>
-                            <ul class="space-y-1 text-medium">
-                                <li class="flex items-center"><i class="fa fa-times text-danger mr-2"></i> 熬夜和过度劳累</li>
-                                <li class="flex items-center"><i class="fa fa-times text-danger mr-2"></i> 冲动消费</li>
-                                <li class="flex items-center"><i class="fa fa-times text-danger mr-2"></i> 与人发生争执</li>
-                            </ul>
+                    <div class="md:col-span-2">
+                        <h2 class="text-2xl md:text-3xl font-bold mb-2">你好，我是周锐童</h2>
+                        <p class="text-medium text-lg mb-4">全栈开发者 | 技术写作者 | 开源爱好者</p>
+                        <p class="text-medium mb-6">欢迎来到我的个人博客！我热爱探索各种前沿技术，分享编程经验和项目实践。这里记录了我的学习历程和思考，希望能对你有所启发。</p>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">JavaScript</span>
+                            <span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm">Python</span>
+                            <span class="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm">React</span>
+                            <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">Vue</span>
+                            <span class="px-3 py-1 bg-teal-100 text-teal-600 rounded-full text-sm">Node.js</span>
+                            <span class="px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-sm">AI</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- 精选专栏 -->
-        <section id="columns" class="mb-10">
+        <!-- 精选文章 -->
+        <section id="articles" class="mb-10">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold">精选专栏</h2>
-                <a href="#" class="text-primary hover:underline">查看全部专栏 <i class="fa fa-angle-right ml-1"></i></a>
+                <h2 class="text-2xl font-bold">精选文章</h2>
+                <a href="#" class="text-primary hover:underline">查看全部文章 <i class="fa fa-angle-right ml-1"></i></a>
             </div>
             
-            <!-- 专栏列表 -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- 专栏1 -->
-                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
-                    <div class="p-1 bg-primary"></div>
-                    <div class="p-6">
+            <!-- 特色文章 -->
+            <div class="bg-white rounded-xl card-shadow overflow-hidden mb-8 card-hover">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    <div class="p-6 md:p-8">
                         <div class="flex items-center mb-3">
-                            <span class="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">生活随笔</span>
-                            <span class="ml-auto text-xs text-light">阅读 2.4k</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
-                            <a href="#">如何保持每天的积极心态</a>
-                        </h3>
-                        <p class="text-medium text-sm mb-4 line-clamp-3">保持积极心态对身心健康至关重要，本文分享了5个简单有效的方法，帮助你在日常生活中保持积极乐观，提升幸福感。</p>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <img src="https://picsum.photos/40/40?random=10" alt="作者头像" class="w-8 h-8 rounded-full mr-2">
-                                <span class="text-sm text-light">李明 · 3天前</span>
-                            </div>
-                            <button class="text-light hover:text-primary transition-colors">
-                                <i class="fa fa-bookmark-o"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 专栏2 -->
-                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
-                    <div class="p-1 bg-secondary"></div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="text-xs px-2 py-1 rounded-full bg-secondary/10 text-secondary">学习方法</span>
-                            <span class="ml-auto text-xs text-light">阅读 1.8k</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
-                            <a href="#">高效学习的七个秘诀</a>
-                        </h3>
-                        <p class="text-medium text-sm mb-4 line-clamp-3">无论是学生还是职场人士，高效学习能力都是必备技能。本文总结了经过实践验证的七个学习秘诀，帮助你快速掌握新知识。</p>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <img src="https://picsum.photos/40/40?random=11" alt="作者头像" class="w-8 h-8 rounded-full mr-2">
-                                <span class="text-sm text-light">张华 · 1周前</span>
-                            </div>
-                            <button class="text-light hover:text-primary transition-colors">
-                                <i class="fa fa-bookmark-o"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 专栏3 -->
-                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
-                    <div class="p-1 bg-accent"></div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent">科技前沿</span>
-                            <span class="ml-auto text-xs text-light">阅读 3.1k</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
-                            <a href="#">人工智能如何改变我们的未来</a>
-                        </h3>
-                        <p class="text-medium text-sm mb-4 line-clamp-3">人工智能技术正以惊人的速度发展，本文从多个角度分析了AI对未来工作、生活、教育等领域的潜在影响，展望了可能的发展方向。</p>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <img src="https://picsum.photos/40/40?random=12" alt="作者头像" class="w-8 h-8 rounded-full mr-2">
-                                <span class="text-sm text-light">王华 · 5天前</span>
-                            </div>
-                            <button class="text-light hover:text-primary transition-colors">
-                                <i class="fa fa-bookmark-o"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 专栏4 -->
-                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
-                    <div class="p-1 bg-danger"></div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="text-xs px-2 py-1 rounded-full bg-danger/10 text-danger">健康养生</span>
-                            <span class="ml-auto text-xs text-light">阅读 1.7k</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
-                            <a href="#">现代人的睡眠质量改善指南</a>
-                        </h3>
-                        <p class="text-medium text-sm mb-4 line-clamp-3">睡眠质量直接影响身体健康和日常生活表现，本文分析了影响睡眠的主要因素，并提供了科学有效的改善建议和方法。</p>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <img src="https://picsum.photos/40/40?random=13" alt="作者头像" class="w-8 h-8 rounded-full mr-2">
-                                <span class="text-sm text-light">刘芳 · 1周前</span>
-                            </div>
-                            <button class="text-light hover:text-primary transition-colors">
-                                <i class="fa fa-bookmark-o"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 专栏5 -->
-                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
-                    <div class="p-1 bg-purple-500"></div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="text-xs px-2 py-1 rounded-full bg-purple-100 text-purple-600">旅行见闻</span>
-                            <span class="ml-auto text-xs text-light">阅读 3.8k</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
-                            <a href="#">隐藏在城市中的小众旅行地</a>
-                        </h3>
-                        <p class="text-medium text-sm mb-4 line-clamp-3">不必远赴他乡，身边就有许多值得探索的小众旅行地。本文推荐了多个城市中的隐秘景点，让你在周末也能享受旅行的乐趣。</p>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <img src="https://picsum.photos/40/40?random=14" alt="作者头像" class="w-8 h-8 rounded-full mr-2">
-                                <span class="text-sm text-light">赵远 · 2天前</span>
-                            </div>
-                            <button class="text-light hover:text-primary transition-colors">
-                                <i class="fa fa-bookmark-o"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 专栏6 -->
-                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
-                    <div class="p-1 bg-teal-500"></div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-3">
-                            <span class="text-xs px-2 py-1 rounded-full bg-teal-100 text-teal-600">美食分享</span>
-                            <span class="ml-auto text-xs text-light">阅读 2.2k</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
-                            <a href="#">30分钟快手健康晚餐食谱</a>
-                        </h3>
-                        <p class="text-medium text-sm mb-4 line-clamp-3">工作忙碌也能享受健康美食。本文分享了5款30分钟即可完成的健康晚餐食谱，营养均衡，简单易做，适合上班族尝试。</p>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <img src="https://picsum.photos/40/40?random=15" alt="作者头像" class="w-8 h-8 rounded-full mr-2">
-                                <span class="text-sm text-light">陈厨 · 4天前</span>
-                            </div>
-                            <button class="text-light hover:text-primary transition-colors">
-                                <i class="fa fa-bookmark-o"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- 运势预测专栏 -->
-        <section class="mb-10">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold">运势预测专栏</h2>
-                <a href="#" class="text-primary hover:underline">更多预测 <i class="fa fa-angle-right ml-1"></i></a>
-            </div>
-            
-            <!-- 预测专栏 -->
-            <div class="bg-white rounded-xl card-shadow p-6 card-hover">
-                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-                    <div class="lg:col-span-2">
-                        <div class="flex items-center mb-3">
-                            <span class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent">每周运势</span>
-                            <span class="ml-auto text-xs text-light">阅读 5.7k</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">前端开发</span>
+                            <span class="ml-auto text-xs text-light">2023-10-15 · 阅读 5.7k</span>
                         </div>
                         <h3 class="text-2xl font-bold mb-3 hover:text-primary transition-colors">
-                            <a href="#">十月第三周星座运势全解析</a>
+                            <a href="article1.html">现代前端工程化实践：从构建到部署的全流程优化</a>
                         </h3>
-                        <p class="text-medium mb-4">本周行星运行较为稳定，水逆影响逐渐消退，整体运势呈现上升趋势。火象星座在事业上会有不错的突破，土象星座适合巩固现有成果，风象星座人际关系运势较佳，水象星座则需要注意健康问题...</p>
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <img src="https://picsum.photos/40/40?random=20" alt="作者头像" class="w-10 h-10 rounded-full mr-3">
-                                <div>
-                                    <div class="font-medium">占星师小雨</div>
-                                    <div class="text-sm text-light">发布于 2023-10-14</div>
-                                </div>
-                            </div>
-                            <button class="bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-primary/90 transition-colors">
+                        <p class="text-medium mb-4">本文详细介绍了如何构建一个高效的前端工程化体系，包括代码规范、模块化开发、自动化构建、性能优化和CI/CD等关键环节。通过实际案例演示，帮助你提升团队开发效率和项目质量。</p>
+                        <div class="flex items-center">
+                            <button class="bg-primary text-white px-4 py-2 rounded-full text-sm hover:bg-primary/90 transition-colors mr-4">
                                 阅读全文
                             </button>
+                            <div class="flex items-center text-light">
+                                <span class="flex items-center mr-3"><i class="fa fa-comment-o mr-1"></i> 42</span>
+                                <span class="flex items-center"><i class="fa fa-heart-o mr-1"></i> 138</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="lg:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <div class="bg-accent/5 rounded-lg p-4">
-                            <div class="font-medium mb-2">白羊座</div>
-                            <div class="flex items-center mb-2">
-                                <div class="w-24 bg-gray-200 rounded-full h-1.5">
-                                    <div class="bg-accent h-1.5 rounded-full" style="width: 85%"></div>
-                                </div>
-                                <span class="ml-2 text-xs text-accent">85分</span>
-                            </div>
-                            <p class="text-sm text-medium line-clamp-2">事业运旺盛，适合主动出击，容易获得领导赏识。</p>
+                    <div class="bg-gray-100 h-64 lg:h-auto">
+                        <img src="https://picsum.photos/800/600?random=10" alt="前端工程化" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 文章列表 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 文章1 -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
+                    <div class="h-48 bg-gray-100">
+                        <img src="https://picsum.photos/400/300?random=11" alt="React状态管理" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xs px-2 py-1 rounded-full bg-secondary/10 text-secondary">React</span>
+                            <span class="ml-auto text-xs text-light">2023-10-10</span>
                         </div>
-                        
-                        <div class="bg-primary/5 rounded-lg p-4">
-                            <div class="font-medium mb-2">金牛座</div>
-                            <div class="flex items-center mb-2">
-                                <div class="w-24 bg-gray-200 rounded-full h-1.5">
-                                    <div class="bg-primary h-1.5 rounded-full" style="width: 70%"></div>
+                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
+                            <a href="#">React状态管理方案对比：从useState到Redux Toolkit</a>
+                        </h3>
+                        <p class="text-medium text-sm mb-4 line-clamp-3">深入分析React生态中各种状态管理方案的优缺点，帮助你根据项目需求选择最合适的解决方案。</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="text-light text-sm flex items-center">
+                                    <span class="flex items-center mr-3"><i class="fa fa-comment-o mr-1"></i> 28</span>
+                                    <span class="flex items-center"><i class="fa fa-heart-o mr-1"></i> 85</span>
                                 </div>
-                                <span class="ml-2 text-xs text-primary">70分</span>
                             </div>
-                            <p class="text-sm text-medium line-clamp-2">财运不错，投资需谨慎，感情方面有小惊喜。</p>
-                        </div>
-                        
-                        <div class="bg-secondary/5 rounded-lg p-4">
-                            <div class="font-medium mb-2">双子座</div>
-                            <div class="flex items-center mb-2">
-                                <div class="w-24 bg-gray-200 rounded-full h-1.5">
-                                    <div class="bg-secondary h-1.5 rounded-full" style="width: 90%"></div>
-                                </div>
-                                <span class="ml-2 text-xs text-secondary">90分</span>
-                            </div>
-                            <p class="text-sm text-medium line-clamp-2">人际关系佳，适合拓展人脉，学习能力增强。</p>
-                        </div>
-                        
-                        <div class="bg-danger/5 rounded-lg p-4">
-                            <div class="font-medium mb-2">巨蟹座</div>
-                            <div class="flex items-center mb-2">
-                                <div class="w-24 bg-gray-200 rounded-full h-1.5">
-                                    <div class="bg-danger h-1.5 rounded-full" style="width: 65%"></div>
-                                </div>
-                                <span class="ml-2 text-xs text-danger">65分</span>
-                            </div>
-                            <p class="text-sm text-medium line-clamp-2">情绪波动较大，需注意休息，避免与家人争执。</p>
-                        </div>
-                        
-                        <div class="bg-purple-500/10 rounded-lg p-4">
-                            <div class="font-medium mb-2">狮子座</div>
-                            <div class="flex items-center mb-2">
-                                <div class="w-24 bg-gray-200 rounded-full h-1.5">
-                                    <div class="bg-purple-500 h-1.5 rounded-full" style="width: 80%"></div>
-                                </div>
-                                <span class="ml-2 text-xs text-purple-500">80分</span>
-                            </div>
-                            <p class="text-sm text-medium line-clamp-2">创意十足，适合展示自我，有机会获得意外收获。</p>
-                        </div>
-                        
-                        <div class="bg-teal-500/10 rounded-lg p-4">
-                            <div class="font-medium mb-2">处女座</div>
-                            <div class="flex items-center mb-2">
-                                <div class="w-24 bg-gray-200 rounded-full h-1.5">
-                                    <div class="bg-teal-500 h-1.5 rounded-full" style="width: 75%"></div>
-                                </div>
-                                <span class="ml-2 text-xs text-teal-500">75分</span>
-                            </div>
-                            <p class="text-sm text-medium line-clamp-2">工作效率高，适合处理细节工作，健康状况良好。</p>
                         </div>
                     </div>
                 </div>
+                
+                <!-- 文章2 -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
+                    <div class="h-48 bg-gray-100">
+                        <img src="https://picsum.photos/400/300?random=12" alt="Python自动化" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xs px-2 py-1 rounded-full bg-accent/10 text-accent">Python</span>
+                            <span class="ml-auto text-xs text-light">2023-10-05</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
+                            <a href="#">Python自动化测试实战：从入门到精通</a>
+                        </h3>
+                        <p class="text-medium text-sm mb-4 line-clamp-3">介绍如何使用Python构建自动化测试框架，包括单元测试、集成测试和端到端测试的最佳实践。</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="text-light text-sm flex items-center">
+                                    <span class="flex items-center mr-3"><i class="fa fa-comment-o mr-1"></i> 16</span>
+                                    <span class="flex items-center"><i class="fa fa-heart-o mr-1"></i> 62</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 文章3 -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
+                    <div class="h-48 bg-gray-100">
+                        <img src="https://picsum.photos/400/300?random=13" alt="Web安全" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xs px-2 py-1 rounded-full bg-purple-100 text-purple-600">安全</span>
+                            <span class="ml-auto text-xs text-light">2023-09-28</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
+                            <a href="#">Web安全防护：常见攻击类型与防御策略</a>
+                        </h3>
+                        <p class="text-medium text-sm mb-4 line-clamp-3">详细分析XSS、CSRF、SQL注入等常见Web攻击方式，并提供有效的防御措施和代码示例。</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="text-light text-sm flex items-center">
+                                    <span class="flex items-center mr-3"><i class="fa fa-comment-o mr-1"></i> 35</span>
+                                    <span class="flex items-center"><i class="fa fa-heart-o mr-1"></i> 94</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 文章4 -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
+                    <div class="h-48 bg-gray-100">
+                        <img src="https://picsum.photos/400/300?random=14" alt="Node.js性能优化" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xs px-2 py-1 rounded-full bg-teal-100 text-teal-600">Node.js</span>
+                            <span class="ml-auto text-xs text-light">2023-09-20</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
+                            <a href="#">Node.js性能优化：从理论到实践</a>
+                        </h3>
+                        <p class="text-medium text-sm mb-4 line-clamp-3">探讨Node.js应用性能瓶颈的识别和优化方法，包括内存管理、异步编程和集群模式等方面的最佳实践。</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="text-light text-sm flex items-center">
+                                    <span class="flex items-center mr-3"><i class="fa fa-comment-o mr-1"></i> 24</span>
+                                    <span class="flex items-center"><i class="fa fa-heart-o mr-1"></i> 76</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 文章5 -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
+                    <div class="h-48 bg-gray-100">
+                        <img src="https://picsum.photos/400/300?random=15" alt="AI与前端" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xs px-2 py-1 rounded-full bg-orange-100 text-orange-600">AI</span>
+                            <span class="ml-auto text-xs text-light">2023-09-15</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
+                            <a href="#">AI驱动的前端开发：从代码生成到UI设计</a>
+                        </h3>
+                        <p class="text-medium text-sm mb-4 line-clamp-3">探索AI技术如何改变前端开发流程，介绍几种实用的AI工具和框架，帮助你提高开发效率。</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="text-light text-sm flex items-center">
+                                    <span class="flex items-center mr-3"><i class="fa fa-comment-o mr-1"></i> 41</span>
+                                    <span class="flex items-center"><i class="fa fa-heart-o mr-1"></i> 112</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 文章6 -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
+                    <div class="h-48 bg-gray-100">
+                        <img src="https://picsum.photos/400/300?random=16" alt="微前端架构" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-3">
+                            <span class="text-xs px-2 py-1 rounded-full bg-red-100 text-red-600">架构</span>
+                            <span class="ml-auto text-xs text-light">2023-09-10</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 hover:text-primary transition-colors">
+                            <a href="#">微前端架构实践：从理论到落地</a>
+                        </h3>
+                        <p class="text-medium text-sm mb-4 line-clamp-3">详细介绍微前端架构的核心概念、技术选型和实施方法，结合实际案例分析优缺点和适用场景。</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="text-light text-sm flex items-center">
+                                    <span class="flex items-center mr-3"><i class="fa fa-comment-o mr-1"></i> 52</span>
+                                    <span class="flex items-center"><i class="fa fa-heart-o mr-1"></i> 147</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 分页 -->
+            <div class="flex justify-center mt-10">
+                <nav class="flex items-center space-x-1">
+                    <a href="#" class="px-3 py-2 rounded-md text-light hover:text-primary transition-colors">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a href="#" class="px-3 py-2 rounded-md bg-primary text-white">1</a>
+                    <a href="#" class="px-3 py-2 rounded-md text-medium hover:text-primary transition-colors">2</a>
+                    <a href="#" class="px-3 py-2 rounded-md text-medium hover:text-primary transition-colors">3</a>
+                    <span class="px-3 py-2 text-medium">...</span>
+                    <a href="#" class="px-3 py-2 rounded-md text-medium hover:text-primary transition-colors">12</a>
+                    <a href="#" class="px-3 py-2 rounded-md text-light hover:text-primary transition-colors">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </nav>
+            </div>
+        </section>
+        
+        <!-- 个人项目 -->
+        <section id="projects" class="mb-10">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold">个人项目</h2>
+                <a href="#" class="text-primary hover:underline">查看全部项目 <i class="fa fa-angle-right ml-1"></i></a>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 项目1 -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
+                    <div class="h-48 bg-gray-100">
+                        <img src="https://picsum.photos/400/300?random=20" alt="项目截图" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-xl font-bold">实时协作编辑器</h3>
+                            <span class="px-2 py-1 bg-green-100 text-green-600 rounded text-xs">活跃</span>
+                        </div>
+                        <p class="text-medium text-sm mb-4">基于Firebase的实时协作Markdown编辑器，支持多人同时编辑和预览。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">React</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Firebase</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">TypeScript</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-light text-sm"><i class="fa fa-star-o mr-1"></i> 128</span>
+                            <a href="#" class="text-primary hover:underline text-sm">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 项目2 -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
+                    <div class="h-48 bg-gray-100">
+                        <img src="https://picsum.photos/400/300?random=21" alt="项目截图" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-xl font-bold">股票数据分析平台</h3>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-600 rounded text-xs">已完成</span>
+                        </div>
+                        <p class="text-medium text-sm mb-4">使用Python和Django构建的股票数据分析和可视化平台，提供实时行情和技术分析。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Python</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Django</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Chart.js</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-light text-sm"><i class="fa fa-star-o mr-1"></i> 76</span>
+                            <a href="#" class="text-primary hover:underline text-sm">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 项目3 -->
+                <div class="bg-white rounded-xl card-shadow overflow-hidden card-hover">
+                    <div class="h-48 bg-gray-100">
+                        <img src="https://picsum.photos/400/300?random=22" alt="项目截图" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-xl font-bold">移动应用UI组件库</h3>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-600 rounded text-xs">开源</span>
+                        </div>
+                        <p class="text-medium text-sm mb-4">基于Vue.js的移动应用UI组件库，包含丰富的交互组件和动画效果。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Vue.js</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">SCSS</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">Vite</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-light text-sm"><i class="fa fa-star-o mr-1"></i> 215</span>
+                            <a href="#" class="text-primary hover:underline text-sm">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 订阅 -->
+        <section class="bg-primary/5 rounded-xl p-8 mb-10">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-2xl font-bold mb-4">订阅我的博客更新</h2>
+                <p class="text-medium mb-6">第一时间获取最新文章和技术动态</p>
+                <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                    <input type="email" placeholder="输入你的邮箱地址" class="flex-1 px-4 py-3 rounded-lg border border-border-light focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary">
+                    <button class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors">
+                        订阅
+                    </button>
+                </div>
+                <p class="text-light text-sm mt-4">我尊重您的隐私，绝不会向第三方分享您的信息</p>
             </div>
         </section>
     </main>
@@ -450,38 +479,31 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
                     <div class="flex items-center justify-center md:justify-start">
-                        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-lg">运</div>
-                        <span class="ml-2 text-lg font-bold text-primary">运势专栏</span>
+                        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-lg">周</div>
+                        <span class="ml-2 text-lg font-bold text-primary">周锐童的博客</span>
                     </div>
-                    <p class="text-light text-sm mt-2 text-center md:text-left">提供每日运势查询和优质专栏内容</p>
+                    <p class="text-light text-sm mt-2 text-center md:text-left">探索技术与生活的个人博客</p>
                 </div>
                 
                 <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm">
-                    <a href="#" class="text-light hover:text-primary transition-colors">关于我们</a>
-                    <a href="#" class="text-light hover:text-primary transition-colors">专栏投稿</a>
-                    <a href="#" class="text-light hover:text-primary transition-colors">隐私政策</a>
-                    <a href="#" class="text-light hover:text-primary transition-colors">用户协议</a>
-                    <a href="#" class="text-light hover:text-primary transition-colors">联系我们</a>
+                    <a href="#" class="text-light hover:text-primary transition-colors">关于我</a>
+                    <a href="#" class="text-light hover:text-primary transition-colors">文章分类</a>
+                    <a href="#" class="text-light hover:text-primary transition-colors">项目展示</a>
+                    <a href="#" class="text-light hover:text-primary transition-colors">资源推荐</a>
+                    <a href="#" class="text-light hover:text-primary transition-colors">联系方式</a>
                 </div>
             </div>
             
             <div class="mt-8 pt-6 border-t border-border-light text-center text-sm text-light">
-                © 2023 运势专栏 版权所有 | 仅供娱乐参考
+                © 2023 周锐童的博客 版权所有 | 由 <a href="#" class="text-primary hover:underline">周锐童</a> 维护
             </div>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script>
-        // 设置当前日期
+        // 导航栏滚动效果
         document.addEventListener('DOMContentLoaded', function() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1;
-            const day = now.getDate();
-            document.getElementById('currentDate').textContent = `${year}年${month}月${day}日`;
-            
-            // 导航栏滚动效果
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', function() {
                 if (window.scrollY > 10) {
@@ -519,6 +541,19 @@
                     }
                 });
             });
+            
+            // 图片懒加载
+            if ('loading' in HTMLImageElement.prototype) {
+                const images = document.querySelectorAll('img[loading="lazy"]');
+                images.forEach(img => {
+                    img.src = img.dataset.src;
+                });
+            } else {
+                // 回退到传统懒加载库
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+                document.body.appendChild(script);
+            }
         });
     </script>
 </body>
